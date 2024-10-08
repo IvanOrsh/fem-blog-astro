@@ -1,0 +1,12 @@
+:root {
+  --clr-neutral-100: hsl(48, 71%, 99%);
+  --clr-neutral-200: hsl(237, 20%, 80%);
+  --clr-neutral-400: hsl(252, 2%, 41%);
+  --clr-neutral-800: hsl(240, 100%, 5%);
+  --clr-neutral-900: hsl(238, 92%, 5%);
+
+  --clr-orange: hsl(5, 86%, 63%);
+  --clr-yellow: hsl(33, 79%, 61%);
+
+  --clr-accent-400: var(--clr-orange);
+}
