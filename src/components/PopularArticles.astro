@@ -1,43 +1,37 @@
 ---
+import { fetchArticles } from "@lib/fetchArticles";
+
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+
+const popularArticles = await fetchArticles({ count: 3 });
 ---
 
 <h2 class="visually-hidden">Popular articles</h2>
 <ul role="list" class:list={[className]}>
-  <li>
-    <article>
-      <img src="/images/image-retro-pcs.jpg" alt="" />
-      <div>
-        <h3><a href="%">Reviving Retro PCs</a></h3>
-        <p>What happens when old PCs are given modern upgrades?</p>
-      </div>
-    </article>
-  </li>
-
-  <li>
-    <article>
-      <img src="/images/image-top-laptops.jpg" alt="" />
-      <div>
-        <h3><a href="#">Top 10 Laptops of 2022</a></h3>
-        <p>Our best picks for various needs and budgets.</p>
-      </div>
-    </article>
-  </li>
-  <li>
-    <article>
-      <img src="/images/image-gaming-growth.jpg" alt="" />
-      <div>
-        <h3>
-          <a href="#">The Growth of Gaming</a>
-        </h3>
-        <p>How the pandemic has sparked fresh opportunites.</p>
-      </div>
-    </article>
-  </li>
+  {
+    popularArticles.length > 0 &&
+      popularArticles.map((article) => (
+        <li>
+          <article>
+            <img src={article.data.tutorialImage} alt="" />
+            <div>
+              <h3>
+                <a href={`/article/${article.data.text}`}>
+                  {article.data.tutorialTitle}
+                </a>
+              </h3>
+              <p class="truncate" style="--max-lines: 2;">
+                {article.data.content}
+              </p>
+            </div>
+          </article>
+        </li>
+      ))
+  }
 </ul>
 
 <style>
@@ -45,6 +39,12 @@ const { class: className } = Astro.props;
     display: grid;
     gap: 1rem;
     grid-template-columns: 100px auto;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
     > div {
       display: grid;

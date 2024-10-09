@@ -1,30 +1,45 @@
 ---
+import { fetchArticles } from "@lib/fetchArticles";
+
 interface Props {
   class?: string;
 }
 
 const { class: className } = Astro.props;
+
+// TODO: error handling!
+const featuredArticles = await fetchArticles({ count: 1, featured: true });
+
+let articleTitle: string | undefined;
+let articleContent: string | undefined;
+let articleSlug: string | undefined;
+if (featuredArticles.length > 0) {
+  articleTitle = featuredArticles.at(0)?.data.tutorialTitle;
+  articleContent = featuredArticles.at(0)?.data.content;
+  articleSlug = featuredArticles.at(0)?.data.text;
+}
 ---
 
-<div class:list={["featured-article-container", className]}>
-  <h2 class="visually-hidden">Featued article</h2>
-  <article>
-    <img src="/images/image-web-3-desktop.jpg" alt="" />
-    <h3>The Bright Future of Web 3.0?</h3>
-    <div class="flow">
-      <p>
-        We dive into the next evolution of the web that claims to put the power
-        of the platforms back into the hands of the people. But is it really
-        fulfilling the promise?
-      </p>
-      <a href="" class="button"
-        >Read More <span class="visually-hidden"
-          >about The Bright Future of Web 3.0</span
-        ></a
-      >
+{
+  featuredArticles.length > 0 && (
+    <div class:list={["featured-article-container", className]}>
+      <h2 class="visually-hidden">Featued article</h2>
+      <article>
+        <img src="/images/image-web-3-desktop.jpg" alt="" />
+        <h3>{articleTitle}</h3>
+        <div class="flow">
+          <p>{articleContent}</p>
+          <a href={`/article/${articleSlug}`} class="button">
+            Read More{" "}
+            <span class="visually-hidden">
+              about The Bright Future of Web 3.0
+            </span>
+          </a>
+        </div>
+      </article>
     </div>
-  </article>
-</div>
+  )
+}
 
 <style>
   .featured-article-container {
