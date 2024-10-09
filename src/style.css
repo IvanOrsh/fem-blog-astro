@@ -141,6 +141,10 @@ footer {
   margin-block-start: var(--flow-space, 1em);
 }
 
+.section {
+  margin-block-end: 3rem;
+}
+
 /* Components */
 
 .button {
