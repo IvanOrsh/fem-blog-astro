@@ -71,7 +71,7 @@ const { title = "The W." } = Astro.props;
       right: 1.5rem;
       padding: 1rem;
       background: transparent;
-      border: 0;
+      border: 1px solid var(--clr-accent-400);
 
       .icon-close {
         display: none;
@@ -125,7 +125,7 @@ const { title = "The W." } = Astro.props;
 
     font-weight: var(--fw-bold);
     padding: 1em 3em;
-    translate: -200%;
+    translate: -2000%;
 
     &:hover,
     &:focus-visible {
@@ -138,7 +138,7 @@ const { title = "The W." } = Astro.props;
 
 <script>
   const navToggle = document.querySelector(
-    '[aria-controls="primary-nav"]',
+    '[aria-controls="primary-nav"]'
   ) as HTMLButtonElement;
 
   navToggle.addEventListener("click", () => {
