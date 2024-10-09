@@ -178,6 +178,17 @@ section {
   }
 }
 
+.truncate {
+  /* --max-lines: 3; */
+  overflow: hidden;
+  text-overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: var(--max-lines, 3);
+  -webkit-box-orient: vertical;
+
+  line-clamp: var(--max-lines, 3);
+}
+
 .button {
   display: inline flex;
   cursor: pointer;
