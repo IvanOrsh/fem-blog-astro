@@ -82,6 +82,13 @@ body {
   line-height: 1.6;
 }
 
+main,
+section,
+header,
+footer {
+  container-type: inline-size;
+}
+
 /* General Styles */
 .base-layout {
   --max-width: 1180px;
@@ -102,6 +109,19 @@ body {
   }
 }
 
+.three-columns {
+  display: grid;
+  gap: 1rem;
+
+  @container (width > calc(3 * 25ch)) {
+    grid-template-columns: repeat(3, 1fr);
+
+    > .span-2 {
+      grid-column: span 2;
+    }
+  }
+}
+
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -110,6 +130,11 @@ body {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+.inverted {
+  background: black;
+  color: white;
 }
 
 .flow > * + * {
