@@ -112,6 +112,10 @@ body {
   width: 1px;
 }
 
+.flow > * + * {
+  margin-block-start: var(--flow-space, 1em);
+}
+
 /* Components */
 
 .button {
