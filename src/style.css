@@ -12,12 +12,12 @@
   --clr-neutral-800: hsl(240, 100%, 5%);
   --clr-neutral-900: hsl(238, 92%, 5%);
 
-  --clr-orange: hsl(5, 86%, 63%);
-  --clr-yellow: hsl(33, 79%, 61%);
+  --clr-orange-400: hsl(5, 86%, 63%);
+  --clr-yellow-400: hsl(33, 79%, 61%);
 
   --clr-body: var(--clr-neutral-400);
   --clr-heading: var(--clr-neutral-900);
-  --clr-accent-400: var(--clr-orange);
+  --clr-accent-400: var(--clr-orange-400);
 
   --ff-base: "Inter", sans-serif;
 
@@ -132,9 +132,21 @@ footer {
   width: 1px;
 }
 
+.accent-color {
+  color: var(--clr-accent-400);
+}
+
 .inverted {
-  background: black;
-  color: white;
+  --clr-heading: var(--clr-neutral-100);
+  --clr-body: var(--clr-neutral-200);
+  --clr-accent-400: var(--clr-yellow-400);
+
+  padding: 2rem;
+  background-color: var(--clr-neutral-800);
+
+  p {
+    color: var(--clr-body);
+  }
 }
 
 .flow > * + * {
@@ -146,6 +158,17 @@ footer {
 }
 
 /* Components */
+.separated-list {
+  /* add a separator between all items */
+  & > * + *::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: hsl(from var(--clr-body) h s l / 0.6);
+    margin-block: 1.5rem;
+  }
+}
 
 .button {
   display: inline flex;
