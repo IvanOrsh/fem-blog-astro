@@ -11,17 +11,23 @@ const { title = "The W." } = Astro.props;
   <h1 class="visually-hidden">{title}</h1>
   <a href="/" class="logo">
     <img src="/images/logo.svg" alt="" />
-
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="#">New</a></li>
-        <li><a href="#">Popular</a></li>
-        <li><a href="#">Trending</a></li>
-        <li><a href="#">Categories</a></li>
-      </ul>
-    </nav>
   </a>
+
+  <button aria-controls="primary-nav" aria-expanded="false">
+    <span class="visually-hidden">Menu</span>
+    <img class="icon-hamburger" src="/images/icon-menu.svg" alt="" />
+    <img class="icon-close" src="/images/icon-menu-close.svg" alt="" />
+  </button>
+
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="#">New</a></li>
+      <li><a href="#">Popular</a></li>
+      <li><a href="#">Trending</a></li>
+      <li><a href="#">Categories</a></li>
+    </ul>
+  </nav>
 </header>
 
 <style>
@@ -52,6 +58,68 @@ const { title = "The W." } = Astro.props;
     }
   }
 
+  /* mobile nav */
+  button {
+    display: none;
+  }
+
+  @media (width < 750px) {
+    button {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      right: 1.5rem;
+      padding: 1rem;
+      background: transparent;
+      border: 0;
+
+      .icon-close {
+        display: none;
+      }
+    }
+
+    nav {
+      display: none;
+    }
+
+    [aria-expanded="true"] {
+      .icon-hamburger {
+        display: none;
+      }
+      .icon-close {
+        display: block;
+      }
+    }
+
+    [aria-expanded="true"] + nav {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 80%;
+      margin-left: auto;
+      background-color: var(--clr-neutral-100);
+      box-shadow: 0 0 0 100vmax hsl(0 0 0 / 0.4);
+
+      ul {
+        margin-top: 20vh;
+        margin-left: 3rem;
+        display: grid;
+        gap: 2rem;
+        font-size: var(--fs-600);
+      }
+
+      a {
+        color: var(--clr-neutral-900);
+
+        &:hover,
+        &:focus-visible {
+          color: var(--clr-accent-400);
+        }
+      }
+    }
+  }
+
   .skip-to-main {
     position: absolute;
 
@@ -67,3 +135,18 @@ const { title = "The W." } = Astro.props;
     }
   }
 </style>
+
+<script>
+  const navToggle = document.querySelector(
+    '[aria-controls="primary-nav"]',
+  ) as HTMLButtonElement;
+
+  navToggle.addEventListener("click", () => {
+    const navOpened = navToggle.getAttribute("aria-expanded");
+    if (navOpened === "false") {
+      navToggle.setAttribute("aria-expanded", "true");
+    } else {
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+</script>
