@@ -1,0 +1,63 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<h2 class="visually-hidden">Popular articles</h2>
+<ul role="list" class:list={[className]}>
+  <li>
+    <article>
+      <img src="/images/image-retro-pcs.jpg" alt="" />
+      <div>
+        <h3>Reviving Retro PCs</h3>
+        <p>What happens when old PCs are given modern upgrades?</p>
+      </div>
+    </article>
+  </li>
+
+  <li>
+    <article>
+      <img src="/images/image-top-laptops.jpg" alt="" />
+      <div>
+        <h3>Top 10 Laptops of 2022</h3>
+        <p>Our best picks for various needs and budgets.</p>
+      </div>
+    </article>
+  </li>
+  <li>
+    <article>
+      <img src="/images/image-gaming-growth.jpg" alt="" />
+      <div>
+        <h3>The Growth of Gaming</h3>
+        <p>How the pandemic has sparked fresh opportunites.</p>
+      </div>
+    </article>
+  </li>
+</ul>
+
+<style>
+  article {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 100px auto;
+  }
+
+  ul {
+    counter-reset: article-count;
+  }
+
+  li {
+    counter-increment: article-count;
+  }
+
+  h3::before {
+    content: counter(article-count, decimal-leading-zero);
+    display: block;
+    font-weight: var(--fw-semi-bold);
+    font-size: var(--fs-700);
+    color: var(--clr-accent-400);
+  }
+</style>
