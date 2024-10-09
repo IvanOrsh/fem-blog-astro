@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from "astro";
+import PrimaryLayout from "@layouts/PrimaryLayout.astro";
+
+import { fetchArticles } from "@lib/fetchArticles";
+
+export const getStaticPaths = (async () => {
+  const articles = await fetchArticles({});
+
+  return articles.map((article) => ({
+    params: {
+      slug: article.data.text,
+    },
+
+    props: {
+      articleData: article.data,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { articleData } = Astro.props;
+---
+
+<PrimaryLayout title={articleData.tutorialTitle}>
+  <h1>{articleData.tutorialTitle}</h1>
+  <img src={articleData.tutorialImage} alt="" />
+
+  <div class="flow" set:html={articleData.body} />
+</PrimaryLayout>

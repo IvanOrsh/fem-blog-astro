@@ -21,6 +21,7 @@ const WixArticleSchema = z.object({
     tutorialTitle: z.string(),
     content: z.string(),
     publishDate: z.string(),
+    text: z.string(),
   }),
   _id: z.string(),
 });

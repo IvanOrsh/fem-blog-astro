@@ -10,6 +10,7 @@ export interface WixArticle {
     tutorialTitle: string;
     content: string;
     publishDate: string;
+    text: string; // slug
   };
   _id: string;
 }
